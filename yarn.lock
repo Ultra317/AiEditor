@@ -230,6 +230,11 @@
   resolved "https://registry.npmmirror.com/@tiptap/extension-code/-/extension-code-2.11.5.tgz"
   integrity sha512-xOvHevNIQIcCCVn9tpvXa1wBp0wHN/2umbAZGTVzS+AQtM7BTo0tz8IyzwxkcZJaImONcUVYLOLzt2AgW1LltA==
 
+"@tiptap/extension-collaboration-cursor@^2.11.5":
+  version "2.11.5"
+  resolved "https://registry.npmjs.org/@tiptap/extension-collaboration-cursor/-/extension-collaboration-cursor-2.11.5.tgz"
+  integrity sha512-sazBzi5HCHgGRihSzWHhHFMSI9oU0v/qqiDZYJ/zhzCKEWONx8WlS6WTxo6z3l6/Qz9lm7clmHNUQNWxnssAOA==
+
 "@tiptap/extension-collaboration@^2.11.5":
   version "2.11.5"
   resolved "https://registry.npmjs.org/@tiptap/extension-collaboration/-/extension-collaboration-2.11.5.tgz"

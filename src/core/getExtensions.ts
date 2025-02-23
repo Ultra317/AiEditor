@@ -40,6 +40,7 @@ import { FigcaptionExt } from "../extensions/FigcaptionExt.ts";
 import { PasteExt } from "../extensions/PasteExt.ts";
 import { ClassNameExt } from "../extensions/ClassNameExt.ts";
 import Collaboration from "@tiptap/extension-collaboration";
+import CollaborationCursor from "@tiptap/extension-collaboration-cursor"
 
 export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Extensions => {
     // the Collaboration extension comes with its own history handling
@@ -139,6 +140,9 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
             }),
             Collaboration.configure(
                 options.collabration
+            ),
+            CollaborationCursor.configure(
+                options.collabrationCursor
             ),
             ...getBubbleMenus(editor),
         )

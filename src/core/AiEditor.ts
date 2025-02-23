@@ -9,6 +9,7 @@ import {
 } from "@tiptap/core";
 
 import { CollaborationOptions } from "@tiptap/extension-collaboration";
+import { CollaborationCursorOptions } from "@tiptap/extension-collaboration-cursor";
 
 import { Header } from "../components/Header.ts";
 import { Footer } from "../components/Footer.ts";
@@ -187,7 +188,8 @@ export type AiEditorOptions = {
     },
     textCounter?: (text: string) => number,
     ai?: AiGlobalConfig,
-    collabration?: CollaborationOptions
+    collabration?: CollaborationOptions,
+    collabrationCursor?: CollaborationCursorOptions
 } & Partial<Omit<EditorOptions, "element">>
 
 const defaultOptions: Partial<AiEditorOptions> = {

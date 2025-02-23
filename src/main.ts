@@ -8,6 +8,19 @@ import { TiptapCollabProvider } from '@hocuspocus/provider'
 
 
 const doc = new Y.Doc()
+
+const provider = new TiptapCollabProvider({
+    name: "实验文档2",
+    baseUrl: "ws://127.0.0.1:4333",
+    document: doc,
+})
+let id = Math.round(Math.random() * 200).toString()
+provider.setAwarenessField('user', {
+    name: 'user' + id,
+    id: id
+})
+
+
 // @ts-ignore
 window.aiEditor = new AiEditor({
     element: "#aiEditor",
@@ -157,6 +170,13 @@ window.aiEditor = new AiEditor({
     collabration: {
         document: doc
     },
+    collabrationCursor: {
+        provider: provider,
+        user: {
+            name: 'user' + id,
+            color: getRandomHexColor()
+        }
+    },
     onMentionQuery: (query) => {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -190,19 +210,18 @@ window.aiEditor = new AiEditor({
 
 
 function connectToCoopServer() {
-    const provider = new TiptapCollabProvider({
-        name: "实验文档2",
-        baseUrl: "ws://127.0.0.1:4333",
-        document: doc,
-    })
-    let id = Math.round(Math.random() * 200).toString()
-    provider.setAwarenessField('user', {
-        name: 'user' + id,
-        id: id
-    })
     provider.connect()
 }
 
-setInterval(() => {
+setTimeout(() => {
     connectToCoopServer()
 }, 2000)
+
+
+function getRandomHexColor() {
+    // 生成一个介于0到255之间的随机整数并转换为16进制字符串，
+    // 确保总是得到两位数，不足两位前面补零。
+    const randomPart = () => Math.floor(Math.random() * 256).toString(16).padStart(2, '0');
+    // 生成颜色的三个部分，并以#开头组成完整的十六进制颜色代码
+    return `#${randomPart()}${randomPart()}${randomPart()}`;
+}
