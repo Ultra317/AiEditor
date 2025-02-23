@@ -1,44 +1,45 @@
-import {Extensions} from "@tiptap/core";
+import { Extensions } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
-import {Underline} from "@tiptap/extension-underline";
-import {TextStyle} from "@tiptap/extension-text-style";
-import {FontFamily} from "@tiptap/extension-font-family";
-import {AttachmentExt} from "../extensions/AttachmentExt.ts";
-import {PainterExt} from "../extensions/PainterExt.ts";
-import {Highlight} from "@tiptap/extension-highlight";
-import {Color} from "@tiptap/extension-color";
-import {FontSizeExt} from "../extensions/FontSizeExt.ts";
-import {LineHeightExt} from "../extensions/LineHeightExt.ts";
-import {TextAlign} from "@tiptap/extension-text-align";
-import {IndentExt} from "../extensions/IndentExt.ts";
-import {ImageExt} from "../extensions/ImageExt.ts";
-import {Table} from "@tiptap/extension-table";
-import {TableRow} from "@tiptap/extension-table-row";
-import {TableHeader} from "@tiptap/extension-table-header";
-import {TableCell} from "@tiptap/extension-table-cell";
-import {CharacterCount} from "@tiptap/extension-character-count";
-import {Link} from "@tiptap/extension-link";
-import {Superscript} from "@tiptap/extension-superscript";
-import {Subscript} from "@tiptap/extension-subscript";
-import {TaskList} from "@tiptap/extension-task-list";
-import {TaskItem} from "@tiptap/extension-task-item";
-import {CodeBlockExt, languages} from "../extensions/CodeBlockExt.ts";
-import {all, createLowlight} from "lowlight";
-import {VideoExt} from "../extensions/VideoExt.ts";
-import {IFrameExt} from "../extensions/IFrameExt.ts";
-import {getBubbleMenus} from "./getBubbleMenus.ts";
-import {Placeholder} from "@tiptap/extension-placeholder";
-import {createMention} from "../extensions/MentionExt.ts";
-import {AiEditor, AiEditorOptions} from "./AiEditor.ts";
-import {AiCommandExt, defaultCommands} from "../extensions/AiCommandExt.ts";
-import {SelectionMarkerExt} from "../extensions/SelectionMarkerExt.ts";
-import {ContainerExt, defaultItems} from "../extensions/ContainerExt.ts";
-import {HeadingExt} from "../extensions/HeadingExt.ts";
-import {SaveExt} from "../extensions/SaveExt.ts";
-import {FigureExt} from "../extensions/FigureExt.ts";
-import {FigcaptionExt} from "../extensions/FigcaptionExt.ts";
-import {PasteExt} from "../extensions/PasteExt.ts";
-import {ClassNameExt} from "../extensions/ClassNameExt.ts";
+import { Underline } from "@tiptap/extension-underline";
+import { TextStyle } from "@tiptap/extension-text-style";
+import { FontFamily } from "@tiptap/extension-font-family";
+import { AttachmentExt } from "../extensions/AttachmentExt.ts";
+import { PainterExt } from "../extensions/PainterExt.ts";
+import { Highlight } from "@tiptap/extension-highlight";
+import { Color } from "@tiptap/extension-color";
+import { FontSizeExt } from "../extensions/FontSizeExt.ts";
+import { LineHeightExt } from "../extensions/LineHeightExt.ts";
+import { TextAlign } from "@tiptap/extension-text-align";
+import { IndentExt } from "../extensions/IndentExt.ts";
+import { ImageExt } from "../extensions/ImageExt.ts";
+import { Table } from "@tiptap/extension-table";
+import { TableRow } from "@tiptap/extension-table-row";
+import { TableHeader } from "@tiptap/extension-table-header";
+import { TableCell } from "@tiptap/extension-table-cell";
+import { CharacterCount } from "@tiptap/extension-character-count";
+import { Link } from "@tiptap/extension-link";
+import { Superscript } from "@tiptap/extension-superscript";
+import { Subscript } from "@tiptap/extension-subscript";
+import { TaskList } from "@tiptap/extension-task-list";
+import { TaskItem } from "@tiptap/extension-task-item";
+import { CodeBlockExt, languages } from "../extensions/CodeBlockExt.ts";
+import { all, createLowlight } from "lowlight";
+import { VideoExt } from "../extensions/VideoExt.ts";
+import { IFrameExt } from "../extensions/IFrameExt.ts";
+import { getBubbleMenus } from "./getBubbleMenus.ts";
+import { Placeholder } from "@tiptap/extension-placeholder";
+import { createMention } from "../extensions/MentionExt.ts";
+import { AiEditor, AiEditorOptions } from "./AiEditor.ts";
+import { AiCommandExt, defaultCommands } from "../extensions/AiCommandExt.ts";
+import { SelectionMarkerExt } from "../extensions/SelectionMarkerExt.ts";
+import { ContainerExt, defaultItems } from "../extensions/ContainerExt.ts";
+import { HeadingExt } from "../extensions/HeadingExt.ts";
+import { SaveExt } from "../extensions/SaveExt.ts";
+import { FigureExt } from "../extensions/FigureExt.ts";
+import { FigcaptionExt } from "../extensions/FigcaptionExt.ts";
+import { PasteExt } from "../extensions/PasteExt.ts";
+import { ClassNameExt } from "../extensions/ClassNameExt.ts";
+import Collaboration from "@tiptap/extension-collaboration";
 
 export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Extensions => {
     // the Collaboration extension comes with its own history handling
@@ -136,6 +137,9 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
                 defaultType: options.container?.defaultType || "warning",
                 typeItems: options.container?.typeItems || defaultItems,
             }),
+            Collaboration.configure(
+                options.collabration
+            ),
             ...getBubbleMenus(editor),
         )
     }

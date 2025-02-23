@@ -8,37 +8,39 @@ import {
     ChainedCommands
 } from "@tiptap/core";
 
-import {Header} from "../components/Header.ts";
-import {Footer} from "../components/Footer.ts";
+import { CollaborationOptions } from "@tiptap/extension-collaboration";
 
-import {getExtensions} from "./getExtensions.ts";
+import { Header } from "../components/Header.ts";
+import { Footer } from "../components/Footer.ts";
+
+import { getExtensions } from "./getExtensions.ts";
 
 import "../styles"
 // i18n
 import i18next from "i18next";
-import {zh} from "../i18n/zh.ts";
-import {en} from "../i18n/en.ts";
-import {de} from "../i18n/de.ts";
-import {pt} from "../i18n/pt.ts";
-import {es} from "../i18n/es.ts";
-import {hi} from "../i18n/hi.ts";
-import {id} from "../i18n/id.ts";
-import {ja} from "../i18n/ja.ts";
-import {ko} from "../i18n/ko.ts";
-import {th} from "../i18n/th.ts";
-import {vi} from "../i18n/vi.ts";
-import {Resource} from "i18next";
+import { zh } from "../i18n/zh.ts";
+import { en } from "../i18n/en.ts";
+import { de } from "../i18n/de.ts";
+import { pt } from "../i18n/pt.ts";
+import { es } from "../i18n/es.ts";
+import { hi } from "../i18n/hi.ts";
+import { id } from "../i18n/id.ts";
+import { ja } from "../i18n/ja.ts";
+import { ko } from "../i18n/ko.ts";
+import { th } from "../i18n/th.ts";
+import { vi } from "../i18n/vi.ts";
+import { Resource } from "i18next";
 
-import {DOMParser} from "@tiptap/pm/model";
-import {AiGlobalConfig} from "../ai/AiGlobalConfig.ts";
-import {AiModelManager} from "../ai/AiModelManager.ts";
-import {defineCustomElement} from "../commons/defineCustomElement.ts";
-import {BubbleMenuItem} from "../components/bubbles/types.ts";
-import {LanguageItem} from "../extensions/CodeBlockExt.ts";
-import {Transaction} from "@tiptap/pm/state";
-import {DefaultToolbarKey} from "../components/DefaultToolbarKeys.ts";
-import {htmlToMd, mdToHtml} from "../util/mdUtil.ts";
-import {organizeHTMLContent} from "../util/htmlUtil.ts";
+import { DOMParser } from "@tiptap/pm/model";
+import { AiGlobalConfig } from "../ai/AiGlobalConfig.ts";
+import { AiModelManager } from "../ai/AiModelManager.ts";
+import { defineCustomElement } from "../commons/defineCustomElement.ts";
+import { BubbleMenuItem } from "../components/bubbles/types.ts";
+import { LanguageItem } from "../extensions/CodeBlockExt.ts";
+import { Transaction } from "@tiptap/pm/state";
+import { DefaultToolbarKey } from "../components/DefaultToolbarKeys.ts";
+import { htmlToMd, mdToHtml } from "../util/mdUtil.ts";
+import { organizeHTMLContent } from "../util/htmlUtil.ts";
 
 defineCustomElement('aie-header', Header);
 defineCustomElement('aie-footer', Footer);
@@ -185,6 +187,7 @@ export type AiEditorOptions = {
     },
     textCounter?: (text: string) => number,
     ai?: AiGlobalConfig,
+    collabration?: CollaborationOptions
 } & Partial<Omit<EditorOptions, "element">>
 
 const defaultOptions: Partial<AiEditorOptions> = {
@@ -244,31 +247,31 @@ export class AiEditor {
     eventComponents: AiEditorEventListener[] = [];
 
     constructor(_: AiEditorOptions) {
-        this.options = {...defaultOptions, ..._};
+        this.options = { ...defaultOptions, ..._ };
         this.initI18nAndInnerEditor();
     }
 
     private initI18nAndInnerEditor() {
         const i18nConfig = this.options.i18n || {};
         const resources = {
-            de: {translation: {...de, ...i18nConfig.de}},
-            en: {translation: {...en, ...i18nConfig.en}},
-            pt: {translation: {...pt, ...i18nConfig.pt}},
-            zh: {translation: {...zh, ...i18nConfig.zh}},
-            es: {translation: {...es, ...i18nConfig.es}},
-            hi: {translation: {...hi, ...i18nConfig.hi}},
-            id: {translation: {...id, ...i18nConfig.id}},
-            ja: {translation: {...ja, ...i18nConfig.ja}},
-            ko: {translation: {...ko, ...i18nConfig.ko}},
-            th: {translation: {...th, ...i18nConfig.th}},
-            vi: {translation: {...vi, ...i18nConfig.vi}},
+            de: { translation: { ...de, ...i18nConfig.de } },
+            en: { translation: { ...en, ...i18nConfig.en } },
+            pt: { translation: { ...pt, ...i18nConfig.pt } },
+            zh: { translation: { ...zh, ...i18nConfig.zh } },
+            es: { translation: { ...es, ...i18nConfig.es } },
+            hi: { translation: { ...hi, ...i18nConfig.hi } },
+            id: { translation: { ...id, ...i18nConfig.id } },
+            ja: { translation: { ...ja, ...i18nConfig.ja } },
+            ko: { translation: { ...ko, ...i18nConfig.ko } },
+            th: { translation: { ...th, ...i18nConfig.th } },
+            vi: { translation: { ...vi, ...i18nConfig.vi } },
         } as Resource;
 
         //fill the resources but de, en, pt and zh
         for (let key of Object.keys(i18nConfig)) {
             if (key != "de" && key != "en" && key != "pt" && key != "zh") {
                 resources[key] = {
-                    translation: {...i18nConfig[key]}
+                    translation: { ...i18nConfig[key] }
                 }
             }
         }
@@ -424,7 +427,7 @@ export class AiEditor {
     getSelectedText() {
         const selection = this.innerEditor.state.selection;
         if (selection.empty) return "";
-        return getTextBetween(this.innerEditor.state.doc, {from: selection.from, to: selection.to})
+        return getTextBetween(this.innerEditor.state.doc, { from: selection.from, to: selection.to })
     }
 
     getMarkdown() {
@@ -467,7 +470,7 @@ export class AiEditor {
 
                 const id = `aie-heading-${headings.length + 1}`
                 if (node.attrs.id !== id) {
-                    const {state: {tr}, view: {dispatch}} = this.innerEditor
+                    const { state: { tr }, view: { dispatch } } = this.innerEditor
                     dispatch(tr.setNodeMarkup(pos, void 0, {
                         ...node.attrs,
                         id,

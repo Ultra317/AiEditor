@@ -1,7 +1,13 @@
 // import { openai } from "./chatgpt.ts";
-import {AiEditor} from "./core/AiEditor.ts";
+import { AiEditor } from "./core/AiEditor.ts";
+import * as Y from "yjs"
+import { TiptapCollabProvider } from '@hocuspocus/provider'
+
 // import { config } from "./spark.ts";
 // import {OpenaiModelConfig} from "./ai/openai/OpenaiModelConfig.ts";
+
+
+const doc = new Y.Doc()
 // @ts-ignore
 window.aiEditor = new AiEditor({
     element: "#aiEditor",
@@ -56,13 +62,13 @@ window.aiEditor = new AiEditor({
     },
     codeBlock: {
         languages: [
-            {name: 'Auto', value: 'auto'},
-            {name: 'Plain Text', value: 'plaintext', alias: ['text', 'txt']},
-            {name: 'Bash', value: 'bash', alias: ['sh']},
-            {name: 'BASIC', value: 'basic', alias: []},
-            {name: 'C', value: 'c', alias: ['h']},
-            {name: 'Clojure', value: 'clojure', alias: ['clj', 'edn']},
-            {name: 'CMake', value: 'cmake', alias: ['cmake.in']},
+            { name: 'Auto', value: 'auto' },
+            { name: 'Plain Text', value: 'plaintext', alias: ['text', 'txt'] },
+            { name: 'Bash', value: 'bash', alias: ['sh'] },
+            { name: 'BASIC', value: 'basic', alias: [] },
+            { name: 'C', value: 'c', alias: ['h'] },
+            { name: 'Clojure', value: 'clojure', alias: ['clj', 'edn'] },
+            { name: 'CMake', value: 'cmake', alias: ['cmake.in'] },
         ]
     },
     // htmlPasteConfig: {
@@ -148,6 +154,9 @@ window.aiEditor = new AiEditor({
     //         }, 200)
     //     })
     // }
+    collabration: {
+        document: doc
+    },
     onMentionQuery: (query) => {
         return new Promise((resolve) => {
             setTimeout(() => {
@@ -178,3 +187,22 @@ window.aiEditor = new AiEditor({
         })
     }
 })
+
+
+function connectToCoopServer() {
+    const provider = new TiptapCollabProvider({
+        name: "实验文档2",
+        baseUrl: "ws://127.0.0.1:4333",
+        document: doc,
+    })
+    let id = Math.round(Math.random() * 200).toString()
+    provider.setAwarenessField('user', {
+        name: 'user' + id,
+        id: id
+    })
+    provider.connect()
+}
+
+setInterval(() => {
+    connectToCoopServer()
+}, 2000)
