@@ -167,16 +167,6 @@ window.aiEditor = new AiEditor({
     //         }, 200)
     //     })
     // }
-    collabration: {
-        document: doc
-    },
-    collabrationCursor: {
-        provider: provider,
-        user: {
-            name: 'user' + id,
-            color: getRandomHexColor()
-        }
-    },
     onMentionQuery: (query) => {
         return new Promise((resolve) => {
             setTimeout(() => {

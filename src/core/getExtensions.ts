@@ -138,12 +138,6 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
                 defaultType: options.container?.defaultType || "warning",
                 typeItems: options.container?.typeItems || defaultItems,
             }),
-            Collaboration.configure(
-                options.collabration
-            ),
-            CollaborationCursor.configure(
-                options.collabrationCursor
-            ),
             ...getBubbleMenus(editor),
         )
     }
@@ -152,6 +146,18 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
         ret.push(Placeholder.configure({
             placeholder: options.placeholder,
         }))
+    }
+
+    if (options.collabration) {
+        ret.push(Collaboration.configure(
+            options.collabration
+        ))
+    }
+
+    if (options.collabrationCursor) {
+        ret.push(CollaborationCursor.configure(
+            options.collabrationCursor
+        ))
     }
 
     // if (options.ai?.command){

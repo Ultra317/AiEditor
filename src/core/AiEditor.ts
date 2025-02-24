@@ -188,8 +188,8 @@ export type AiEditorOptions = {
     },
     textCounter?: (text: string) => number,
     ai?: AiGlobalConfig,
-    collabration?: CollaborationOptions,
-    collabrationCursor?: CollaborationCursorOptions
+    collabration?: CollaborationOptions | any,
+    collabrationCursor?: CollaborationCursorOptions | any
 } & Partial<Omit<EditorOptions, "element">>
 
 const defaultOptions: Partial<AiEditorOptions> = {
@@ -200,6 +200,8 @@ const defaultOptions: Partial<AiEditorOptions> = {
     draggable: true,
     placeholder: "",
     toolbarSize: 'small',
+    collabration: null,
+    collabrationCursor: null
 }
 
 export class InnerEditor extends Tiptap {

@@ -1,5 +1,7 @@
 import { ChainedCommands } from '@tiptap/core/dist/packages/core/src/types';
 import { ChainedCommands as ChainedCommands_2 } from '@tiptap/core';
+import { CollaborationCursorOptions } from '@tiptap/extension-collaboration-cursor';
+import { CollaborationOptions } from '@tiptap/extension-collaboration';
 import { Editor } from '@tiptap/core';
 import { EditorEvents } from '@tiptap/core';
 import { EditorOptions } from '@tiptap/core';
@@ -190,6 +192,8 @@ export declare type AiEditorOptions = {
     };
     textCounter?: (text: string) => number;
     ai?: AiGlobalConfig;
+    collabration?: CollaborationOptions;
+    collabrationCursor?: CollaborationCursorOptions | any;
 } & Partial<Omit<EditorOptions, "element">>;
 
 export declare interface AiGlobalConfig {
