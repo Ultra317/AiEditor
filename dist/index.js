@@ -90247,6 +90247,6 @@ export {
   sx as OpenaiAiModel,
   Jw as SparkAiModel,
   ex as WenXinAiModel,
-  w$ as getProvider,
-  I$ as getYDoc
+  I$ as getDoc,
+  w$ as getProvider
 };

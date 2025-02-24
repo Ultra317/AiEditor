@@ -339,9 +339,9 @@ declare class Footer extends HTMLElement implements AiEditorEventListener {
     onEditableChange(editable: boolean): void;
 }
 
-export declare const getProvider: (options: TiptapCollabProviderConfiguration) => TiptapCollabProvider;
+export declare const getDoc: (options: object) => Y.Doc;
 
-export declare const getYDoc: (options: object) => Y.Doc;
+export declare const getProvider: (options: TiptapCollabProviderConfiguration) => TiptapCollabProvider;
 
 declare class Header extends HTMLElement implements AiEditorEventListener {
     menuButtons: AbstractMenuButton[];
