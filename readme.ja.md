@@ -1,3 +1,5 @@
+シンプルなコラボレーションモジュールを追加しました。著作権侵害がある場合は通知してください。確認次第、すぐに公開を撤回します
+mail:w31710@gmail.com
 <h4 align="right"> <a href="./readme.md">English</a> | <a href="./readme.zh.md">简体中文</a> | <strong>日本語</strong></h4>
 
 ![](./docs/assets/image/readme-banner.png)

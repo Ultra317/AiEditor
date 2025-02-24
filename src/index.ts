@@ -15,3 +15,4 @@ export * from './ai/spark/SparkAiModelConfig.ts';
 export * from './ai/wenxin/WenXinAiModel.ts';
 export * from './ai/wenxin/WenXinAiModelConfig.ts';
 export * from './components/bubbles/types.ts';
+export * from './components/Collaboration.ts';

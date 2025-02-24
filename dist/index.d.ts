@@ -10,7 +10,10 @@ import { Fragment } from 'prosemirror-model';
 import { Instance } from 'tippy.js';
 import { JSONContent } from '@tiptap/core';
 import { SingleCommands } from '@tiptap/core';
+import { TiptapCollabProvider } from '@hocuspocus/provider';
+import { TiptapCollabProviderConfiguration } from '@hocuspocus/provider';
 import { Transaction } from '@tiptap/pm/state';
+import * as Y from 'yjs';
 
 declare class AbstractMenuButton extends HTMLElement implements AiEditorEventListener {
     template: string;
@@ -335,6 +338,10 @@ declare class Footer extends HTMLElement implements AiEditorEventListener {
     onTransaction(event: EditorEvents["transaction"]): void;
     onEditableChange(editable: boolean): void;
 }
+
+export declare const getProvider: (options: TiptapCollabProviderConfiguration) => TiptapCollabProvider;
+
+export declare const getYDoc: (options: object) => Y.Doc;
 
 declare class Header extends HTMLElement implements AiEditorEventListener {
     menuButtons: AbstractMenuButton[];

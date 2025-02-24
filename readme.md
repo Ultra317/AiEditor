@@ -1,3 +1,5 @@
+Added a simple collaboration module. Please notify if there is any copyright infringement, and it will be immediately withdrawn
+Mail:w31710@gmail.com
 <h4 align="right"><strong>English</strong> | <a href="./readme.zh.md">简体中文</a> | <a href="./readme.ja.md">日本語</a></h4>
 
 ![](./docs/assets/image/readme-banner.png)
@@ -24,7 +26,6 @@ AiEditor is a next-generation rich text editor for AI. It is based on Web Compon
 and mobiles, and provides two themes: light and dark. In addition, it also provides flexible configuration, and developers can easily use it to develop any text editing application.
 
 For more information about AiEditor, please visit the official website: https://aieditor.dev
-
 
 ## What makes AIEditor different
 

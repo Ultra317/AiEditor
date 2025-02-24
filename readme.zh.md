@@ -1,3 +1,5 @@
+添加了简易的协作模块，若侵权请通知，将会立即撤销发布
+mail:w31710@gmail.com
 <h4 align="right"><a href="./readme.md">English</a> | <strong>简体中文</strong> | <a href="./readme.ja.md">日本語</a></h4>
 
 
