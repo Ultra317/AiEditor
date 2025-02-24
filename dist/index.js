@@ -82858,16 +82858,14 @@ const CU = (t, e, n) => t !== e, yU = (t) => {
       defaultType: ((O = e.container) == null ? void 0 : O.defaultType) || "warning",
       typeItems: ((y = e.container) == null ? void 0 : y.typeItems) || C0
     }),
-    wU.configure(
-      e.collabration
-    ),
-    DU.configure(
-      e.collabrationCursor
-    ),
     ...rF(t)
   ), e.placeholder && n.push(iF.configure({
     placeholder: e.placeholder
-  })), n.push(dF.configure({
+  })), e.collabration && n.push(wU.configure(
+    e.collabration
+  )), e.collabrationCursor && n.push(DU.configure(
+    e.collabrationCursor
+  )), n.push(dF.configure({
     suggestion: {
       items: (R) => {
         var B;
@@ -88175,7 +88173,9 @@ const RH = {
   editable: !0,
   draggable: !0,
   placeholder: "",
-  toolbarSize: "small"
+  toolbarSize: "small",
+  collabration: null,
+  collabrationCursor: null
 };
 class OH extends _O {
   constructor(n, r = {}) {
@@ -88280,7 +88280,7 @@ class Y7 {
       const n = this.options.onCreateBefore(this, e);
       n && (e = n);
     }
-    return e;
+    return console.log(e), e;
   }
   onCreate(e) {
     this.innerEditor.view.dom.style.height = "calc(100% - 20px)", this.eventComponents.forEach((o) => {

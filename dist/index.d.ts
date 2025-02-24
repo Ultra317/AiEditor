@@ -192,7 +192,7 @@ export declare type AiEditorOptions = {
     };
     textCounter?: (text: string) => number;
     ai?: AiGlobalConfig;
-    collabration?: CollaborationOptions;
+    collabration?: CollaborationOptions | any;
     collabrationCursor?: CollaborationCursorOptions | any;
 } & Partial<Omit<EditorOptions, "element">>;
 
