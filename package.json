@@ -1,7 +1,7 @@
 {
   "name": "@ultra317/aieditor",
   "author": "yangfuhai/ultra317",
-  "version": "0.1.5",
+  "version": "0.3.0",
   "type": "module",
   "keywords": [
     "editor",
@@ -88,6 +88,9 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Ultra317/AiEditor"
+  },
   "license": "LGPL"
 }

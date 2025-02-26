@@ -155,6 +155,9 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
     }
 
     if (options.collabrationCursor) {
+        if (!options.collabrationCursor.render) {
+            options.collabrationCursor.render = defaultCursorRender
+        }
         ret.push(CollaborationCursor.configure(
             options.collabrationCursor
         ))
@@ -176,4 +179,61 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
     }
 
     return ret;
+}
+
+function defaultCursorRender(user: Record<string, any>) {
+    const cursor = document.createElement('span');
+    cursor.classList.add('collaboration-cursor__caret');
+
+    cursor.style.borderLeft = '1px solid #0d0d0d';
+    cursor.style.borderRight = '1px solid #0d0d0d';
+    cursor.style.marginLeft = '-1px';
+    cursor.style.marginRight = '-1px';
+    cursor.style.pointerEvents = 'none';
+    cursor.style.position = 'relative';
+    cursor.style.wordBreak = 'normal';
+    cursor.style.backgroundColor = user.color;
+
+    const label = document.createElement('div');
+    label.classList.add('collaboration-cursor__label');
+
+    label.style.borderRadius = '3px 3px 3px 0';
+    label.style.color = isLightColor(user.color) ? "#000" : "#fff";
+    label.style.fontSize = '12px';
+    label.style.fontStyle = 'normal';
+    label.style.fontWeight = '600';
+    label.style.left = '-1px';
+    label.style.lineHeight = 'normal';
+    label.style.padding = '0.1rem 0.3rem';
+    label.style.position = 'absolute';
+    label.style.top = '-1.4em';
+    label.style.userSelect = 'none';
+    label.style.whiteSpace = 'nowrap';
+    label.style.backgroundColor = user.color;
+
+    label.textContent = user.name;
+
+    cursor.appendChild(label);
+
+    return cursor
+}
+
+
+function isLightColor(hex: string) {
+
+    hex = hex.replace('#', '');
+
+
+    if (hex.length === 3) {
+        hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+    }
+
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+
+    // 计算亮度值
+    const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
+
+    return luminance > 128;
 }
