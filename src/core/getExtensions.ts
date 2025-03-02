@@ -47,11 +47,13 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
     const ret: Extensions = [StarterKit.configure({
         codeBlock: false,
         heading: false,
+        history: options.collabration ? false : undefined
     })];
 
     {
         //push default extensions
-        ret.push(Underline, TextStyle, FontFamily,
+        ret.push(
+            Underline, TextStyle, FontFamily,
             HeadingExt,
             AttachmentExt.configure({
                 uploadUrl: options.attachment?.uploadUrl,
@@ -164,19 +166,19 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
     }
 
     // if (options.ai?.command){
-    ret.push(AiCommandExt.configure({
-        suggestion: {
-            items: (_) => {
-                const commands = options.ai?.commands || defaultCommands;
-                return commands as any;
-            }
-        }
-    }))
-    // }
+    // ret.push(AiCommandExt.configure({
+    //     suggestion: {
+    //         items: (_) => {
+    //             const commands = options.ai?.commands || defaultCommands;
+    //             return commands as any;
+    //         }
+    //     }
+    // }))
+    // // }
 
-    if (options.onMentionQuery) {
-        ret.push(createMention(options.onMentionQuery))
-    }
+    // if (options.onMentionQuery) {
+    //     ret.push(createMention(options.onMentionQuery))
+    // }
 
     return ret;
 }

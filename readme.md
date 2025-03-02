@@ -1,5 +1,6 @@
-Added a simple collaboration module. Please notify if there is any copyright infringement, and it will be immediately withdrawn
-Mail:w31710@gmail.com
+<p>Added a simple collaboration module. Please notify if there is any copyright infringement, and it will be immediately withdrawn</p>
+<p>Based on Yjs</p>
+<p>Mail:w31710@gmail.com</p>
 <h4 align="right"><strong>English</strong> | <a href="./readme.zh.md">简体中文</a> | <a href="./readme.ja.md">日本語</a></h4>
 
 ![](./docs/assets/image/readme-banner.png)

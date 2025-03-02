@@ -361,7 +361,7 @@ export class AiEditor {
             const newExtensions = this.options.onCreateBefore(this, extensions);
             if (newExtensions) extensions = newExtensions;
         }
-        console.log(extensions)
+
         return extensions;
     }
 
