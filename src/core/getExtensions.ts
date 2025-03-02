@@ -165,7 +165,7 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
         ))
     }
 
-    if (options.ai?.command) {
+    if (options.ai?.commands) {
         ret.push(AiCommandExt.configure({
             suggestion: {
                 items: (_) => {
