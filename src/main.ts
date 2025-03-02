@@ -3,8 +3,6 @@ import { AiEditor } from "./core/AiEditor.ts";
 
 import { TiptapCollabProvider } from '@hocuspocus/provider'
 
-import CollaborationCursor from "@tiptap/extension-collaboration-cursor";
-
 const provider = new TiptapCollabProvider({
     name: "实验文档2",
     baseUrl: "ws://127.0.0.1:4333",
