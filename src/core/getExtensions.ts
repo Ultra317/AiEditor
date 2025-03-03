@@ -47,7 +47,7 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
     const ret: Extensions = [StarterKit.configure({
         codeBlock: false,
         heading: false,
-        history: options.collabration ? false : undefined
+        history: options.collaboration ? false : undefined
     })];
 
     {
@@ -150,18 +150,18 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
         }))
     }
 
-    if (options.collabration) {
+    if (options.collaboration) {
         ret.push(Collaboration.configure(
-            options.collabration
+            options.collaboration
         ))
     }
 
-    if (options.collabrationCursor) {
-        if (!options.collabrationCursor.render) {
-            options.collabrationCursor.render = defaultCursorRender
+    if (options.collaborationCursor) {
+        if (!options.collaborationCursor.render) {
+            options.collaborationCursor.render = defaultCursorRender
         }
         ret.push(CollaborationCursor.configure(
-            options.collabrationCursor
+            options.collaborationCursor
         ))
     }
 
