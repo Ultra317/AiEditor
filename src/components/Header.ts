@@ -1,49 +1,49 @@
-import {AiEditorOptions, AiEditorEventListener} from "../core/AiEditor.ts";
-import {EditorEvents} from "@tiptap/core";
-import {Undo} from "./menus/Undo";
-import {AbstractMenuButton} from "./AbstractMenuButton.ts";
-import {Redo} from "./menus/Redo";
-import {Heading} from "./menus/Heading.ts";
-import {FontFamily} from "./menus/FontFamily";
-import {FontSize} from "./menus/FontSize";
-import {Bold} from "./menus/Bold";
-import {Italic} from "./menus/Italic";
-import {Underline} from "./menus/Underline";
-import {Strike} from "./menus/Strike";
-import {Subscript} from "./menus/Subscript";
-import {Superscript} from "./menus/Superscript";
-import {Highlight} from "./menus/Highlight";
-import {FontColor} from "./menus/FontColor";
-import {Divider} from "./menus/Divider";
-import {BulletList} from "./menus/BulletList";
-import {OrderedList} from "./menus/OrderedList";
-import {IndentDecrease} from "./menus/IndentDecrease";
-import {IndentIncrease} from "./menus/IndentIncrease";
-import {Align} from "./menus/Align";
-import {Link} from "./menus/Link";
-import {SourceCode} from "./menus/SourceCode";
-import {Todo} from "./menus/Todo";
-import {LineHeight} from "./menus/LineHeight";
-import {Quote} from "./menus/Quote";
-import {Image} from "./menus/Image";
-import {Video} from "./menus/Video";
-import {Code} from "./menus/Code";
-import {CodeBlock} from "./menus/CodeBlock";
-import {Eraser} from "./menus/Eraser";
-import {Hr} from "./menus/Hr";
-import {Table} from "./menus/Table";
-import {Break} from "./menus/Break";
-import {Attachment} from "./menus/Attachment";
-import {Fullscreen} from "./menus/Fullscreen";
-import {Printer} from "./menus/Printer";
-import {Emoji} from "./menus/Emoji";
-import {Painter} from "./menus/Painter";
-import {Ai} from "./menus/Ai.ts";
-import {Container} from "./menus/Container.ts";
-import {Custom} from "./menus/Custom.ts";
-import {defineCustomElement} from "../commons/defineCustomElement.ts";
-import {Group} from "./menus/Group.ts";
-import {initToolbarKeys} from "../util/initToolbarKeys.ts";
+import { AiEditorOptions, AiEditorEventListener } from "../core/AiEditor.ts";
+import { EditorEvents } from "@tiptap/core";
+import { Undo } from "./menus/Undo";
+import { AbstractMenuButton } from "./AbstractMenuButton.ts";
+import { Redo } from "./menus/Redo";
+import { Heading } from "./menus/Heading.ts";
+import { FontFamily } from "./menus/FontFamily";
+import { FontSize } from "./menus/FontSize";
+import { Bold } from "./menus/Bold";
+import { Italic } from "./menus/Italic";
+import { Underline } from "./menus/Underline";
+import { Strike } from "./menus/Strike";
+import { Subscript } from "./menus/Subscript";
+import { Superscript } from "./menus/Superscript";
+import { Highlight } from "./menus/Highlight";
+import { FontColor } from "./menus/FontColor";
+import { Divider } from "./menus/Divider";
+import { BulletList } from "./menus/BulletList";
+import { OrderedList } from "./menus/OrderedList";
+import { IndentDecrease } from "./menus/IndentDecrease";
+import { IndentIncrease } from "./menus/IndentIncrease";
+import { Align } from "./menus/Align";
+import { Link } from "./menus/Link";
+import { SourceCode } from "./menus/SourceCode";
+import { Todo } from "./menus/Todo";
+import { LineHeight } from "./menus/LineHeight";
+import { Quote } from "./menus/Quote";
+import { Image } from "./menus/Image";
+import { Video } from "./menus/Video";
+import { Code } from "./menus/Code";
+import { CodeBlock } from "./menus/CodeBlock";
+import { Eraser } from "./menus/Eraser";
+import { Hr } from "./menus/Hr";
+import { Table } from "./menus/Table";
+import { Break } from "./menus/Break";
+import { Attachment } from "./menus/Attachment";
+import { Fullscreen } from "./menus/Fullscreen";
+import { Printer } from "./menus/Printer";
+import { Emoji } from "./menus/Emoji";
+import { Painter } from "./menus/Painter";
+import { Ai } from "./menus/Ai.ts";
+import { Container } from "./menus/Container.ts";
+import { Custom } from "./menus/Custom.ts";
+import { defineCustomElement } from "../commons/defineCustomElement.ts";
+import { Group } from "./menus/Group.ts";
+import { initToolbarKeys } from "../util/initToolbarKeys.ts";
 import { defaultToolbarKeys } from "./DefaultToolbarKeys.ts";
 
 defineCustomElement('aie-undo', Undo);
@@ -118,6 +118,9 @@ export class Header extends HTMLElement implements AiEditorEventListener {
 
     onCreate(event: EditorEvents["create"], options: AiEditorOptions): void {
         let toolbarKeys = options.toolbarKeys || defaultToolbarKeys;
+
+        const dividers = ["divider", "|", undefined];
+
         toolbarKeys = toolbarKeys.filter((tool) => {
             if (typeof tool === "string") {
                 return !options.toolbarExcludeKeys?.includes(tool as any);
@@ -126,11 +129,13 @@ export class Header extends HTMLElement implements AiEditorEventListener {
         }).filter((tool, index, array) => {
             const prevTool = array[index - 1];
             if (typeof tool === "string" && (typeof prevTool === "string" || typeof prevTool === "undefined")) {
-                const dividers = ["divider", "|", undefined];
                 return dividers.includes(tool) ? !dividers.includes(prevTool) : true;
             }
             return true;
         })
+        if (toolbarKeys[toolbarKeys.length - 1] === "divider" || toolbarKeys[toolbarKeys.length - 1] === "|") {
+            toolbarKeys.pop()
+        }
         initToolbarKeys(event, options, this.menuButtons, toolbarKeys);
     }
 

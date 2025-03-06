@@ -27,6 +27,10 @@ provider.document.on('update', (update, origin) => {
 window.aiEditor = new AiEditor({
     element: "#aiEditor",
     placeholder: "点击输入内容1...",
+    toolbarExcludeKeys: ["source-code", "printer", "fullscreen", "ai"],
+    fontSize: {
+        defaultValue: 72
+    },
     // contentRetention: true,
     // toolbarSize: 'small',
     // toolbarSize:'large',
