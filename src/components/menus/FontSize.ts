@@ -10,6 +10,7 @@ const fontSizes: NameAndValue[] = [
     { name: "11", value: 11 },
     { name: "12", value: 12 },
     { name: "14", value: 14 },
+    { name: "16", value: 16 },
     { name: "18", value: 18 },
     { name: "20", value: 20 },
     { name: "22", value: 22 },
@@ -63,7 +64,7 @@ export class FontSize extends AbstractDropdownMenuButton<NameAndValue> {
     onMenuTextRender(index: number): Element | string {
         const item = this.menuData[index];
         if (item.value == this.defaultValue) {
-            return `${t("default-font-size")}(${this.defaultValue})`
+            return `${t("default-font-size")}`
         } else {
             return item.name;
         }

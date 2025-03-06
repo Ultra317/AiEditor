@@ -1,17 +1,17 @@
-import {AbstractDropdownMenuButton} from "../AbstractDropdownMenuButton.ts";
-import {Editor, EditorEvents} from "@tiptap/core";
-import {AiEditorOptions, NameAndValue} from "../../core/AiEditor.ts";
-import {t} from "i18next";
+import { AbstractDropdownMenuButton } from "../AbstractDropdownMenuButton.ts";
+import { Editor, EditorEvents } from "@tiptap/core";
+import { AiEditorOptions, NameAndValue } from "../../core/AiEditor.ts";
+import { t } from "i18next";
 
 
 const fontFamilies: NameAndValue[] = [
-    {name: "宋体", value: "SimSun"},
-    {name: "仿宋", value: "FangSong"},
-    {name: "黑体", value: "SimHei"},
-    {name: "楷体", value: "KaiTi"},
-    {name: "微软雅黑", value: "Microsoft YaHei"},
-    {name: "方正仿宋简体_GBK", value: "FangSong_GB2312"},
-    {name: "Arial", value: "Arial"},
+    { name: "宋体", value: "SimSun" },
+    { name: "仿宋", value: "FangSong" },
+    { name: "黑体", value: "SimHei" },
+    { name: "楷体", value: "KaiTi" },
+    { name: "微软雅黑", value: "Microsoft YaHei" },
+    { name: "方正仿宋简体_GBK", value: "FangSong_GB2312" },
+    { name: "Arial", value: "Arial" },
 ]
 
 export class FontFamily extends AbstractDropdownMenuButton<NameAndValue> {
@@ -26,12 +26,12 @@ export class FontFamily extends AbstractDropdownMenuButton<NameAndValue> {
         super.onCreate(_, options);
         this.menuData = options.fontFamily?.values || fontFamilies;
         this.menuData = [
-            {name: t("default-font-family"), value: ""}
+            { name: t("default-font-family"), value: "" }
         ].concat(this.menuData);
     }
 
     onDropdownActive(editor: Editor, index: number): boolean {
-        return editor.isActive('textStyle', {fontFamily: this.menuData[index].value});
+        return editor.isActive('textStyle', { fontFamily: this.menuData[index].value }) || editor.isActive('textStyle', { fontFamily: this.menuData[index].name });
     }
 
     onDropdownItemClick(index: number): void {

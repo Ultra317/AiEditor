@@ -13,24 +13,15 @@ provider.setAwarenessField('user', {
     id: id
 })
 
-provider.document.on('update', (update, origin) => {
-    console.log('文档发生变化:', update);
-    console.log('变化来源:', origin);
-
-    const xmlFragment = provider.document.getXmlFragment('default');
-    const content = xmlFragment.toJSON(); // 转换为 JSON 格式
-    console.log(content);
-    // 在这里执行自定义逻辑，例如将变化写入数据库
-});
 
 // @ts-ignore
 window.aiEditor = new AiEditor({
     element: "#aiEditor",
     placeholder: "点击输入内容1...",
     toolbarExcludeKeys: ["source-code", "printer", "fullscreen", "ai"],
-    fontSize: {
-        defaultValue: 72
-    },
+    // fontSize: {
+    //     defaultValue: 72
+    // },
     // contentRetention: true,
     // toolbarSize: 'small',
     // toolbarSize:'large',
@@ -38,7 +29,7 @@ window.aiEditor = new AiEditor({
     // draggable:false,
     // theme: "dark",
     // editable:false,
-    content: '',
+    content: '123456',
     collaboration: {
         document: provider.document
     },
@@ -48,9 +39,11 @@ window.aiEditor = new AiEditor({
             name: 'user' + id,
             color: getRandomHexColor()
         },
+    },
+    onSelectionUpdate: (editor) => {
+
     }
 })
-
 
 
 
