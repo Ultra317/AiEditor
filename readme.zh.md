@@ -1,5 +1,5 @@
-<p>添加了简易的协作模块，若侵权请通知，将会立即撤销发布</p>
-<p>基于Yjs</p>
+<p>添加了简易的协作模块(基于Yjs)和其他模块，并对原有仓库的bug进行修正</p>
+<p>若侵权请通知，将会立即撤销发布</p>
 <p>mail:w31710@gmail.com</p>
 <h4 align="right"><a href="./readme.md">English</a> | <strong>简体中文</strong> | <a href="./readme.ja.md">日本語</a></h4>
 

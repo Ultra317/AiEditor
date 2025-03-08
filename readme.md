@@ -1,5 +1,5 @@
-<p>Added a simple collaboration module. Please notify if there is any copyright infringement, and it will be immediately withdrawn</p>
-<p>Based on Yjs</p>
+<p>Added a simple collaboration module (based on Yjs) and other modules, and fixed bugs in the original repository.</p>
+<p>If there is any infringement, please notify us, and it will be removed immediately upon notice.</p>
 <p>Mail:w31710@gmail.com</p>
 <h4 align="right"><strong>English</strong> | <a href="./readme.zh.md">简体中文</a> | <a href="./readme.ja.md">日本語</a></h4>
 
