@@ -10,6 +10,7 @@ import {
 
 import { CollaborationOptions } from "@tiptap/extension-collaboration";
 import { CollaborationCursorOptions } from "@tiptap/extension-collaboration-cursor";
+import { GlobalDragHandleOptions } from 'tiptap-extension-global-drag-handle'
 
 import { Header } from "../components/Header.ts";
 import { Footer } from "../components/Footer.ts";
@@ -165,6 +166,14 @@ export type AiEditorOptions = {
         uploader?: Uploader,
         uploaderEvent?: UploaderEvent,
     },
+    audio?: {
+        customMenuInvoke?: (editor: AiEditor) => void;
+        uploadUrl?: string,
+        uploadHeaders?: (() => Record<string, any>) | Record<string, any>,
+        uploadFormName?: string,
+        uploader?: Uploader,
+        uploaderEvent?: UploaderEvent,
+    },
     attachment?: {
         customMenuInvoke?: (editor: AiEditor) => void;
         uploadUrl?: string,
@@ -189,7 +198,9 @@ export type AiEditorOptions = {
     textCounter?: (text: string) => number,
     ai?: AiGlobalConfig,
     collaboration?: CollaborationOptions | any,
-    collaborationCursor?: CollaborationCursorOptions | any
+    collaborationCursor?: CollaborationCursorOptions | any,
+    enabledefaultGlobalDragHandle?: boolean | any,
+    GlobalDragHandleOptions?: GlobalDragHandleOptions | any
 } & Partial<Omit<EditorOptions, "element">>
 
 const defaultOptions: Partial<AiEditorOptions> = {

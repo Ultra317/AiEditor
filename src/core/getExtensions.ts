@@ -41,6 +41,9 @@ import { PasteExt } from "../extensions/PasteExt.ts";
 import { ClassNameExt } from "../extensions/ClassNameExt.ts";
 import Collaboration from "@tiptap/extension-collaboration";
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor"
+import GlobalDragHandle from 'tiptap-extension-global-drag-handle'
+import { AudioExt } from "../extensions/AudioExt.ts";
+
 
 export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Extensions => {
     // the Collaboration extension comes with its own history handling
@@ -128,6 +131,13 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
                 uploader: options.video?.uploader || options.uploader,
                 uploaderEvent: options.video?.uploaderEvent,
             }),
+            AudioExt.configure({
+                uploadUrl: options.audio?.uploadUrl,
+                uploadHeaders: options.audio?.uploadHeaders,
+                uploadFormName: options.audio?.uploadFormName,
+                uploader: options.audio?.uploader || options.uploader,
+                uploaderEvent: options.audio?.uploaderEvent,
+            }),
             IFrameExt,
             FigureExt,
             FigcaptionExt,
@@ -163,6 +173,15 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
         ret.push(CollaborationCursor.configure(
             options.collaborationCursor
         ))
+    }
+
+    if (options.GlobalDragHandleOptions) {
+        ret.push(GlobalDragHandle.configure(
+            options.GlobalDragHandleOptions
+        ))
+    }
+    else if (options.enabledefaultGlobalDragHandle) {
+        ret.push(GlobalDragHandle)
     }
 
     if (options.ai?.commands) {

@@ -27,7 +27,7 @@ const fontSizes: NameAndValue[] = [
 
 export class FontSize extends AbstractDropdownMenuButton<NameAndValue> {
 
-    defaultValue: number = 14;
+    defaultValue: number = 16;
 
     constructor() {
         super();

@@ -45,6 +45,7 @@ import { defineCustomElement } from "../commons/defineCustomElement.ts";
 import { Group } from "./menus/Group.ts";
 import { initToolbarKeys } from "../util/initToolbarKeys.ts";
 import { defaultToolbarKeys } from "./DefaultToolbarKeys.ts";
+import { Audio } from "./menus/Audio.ts";
 
 defineCustomElement('aie-undo', Undo);
 defineCustomElement('aie-undo', Undo);
@@ -79,6 +80,7 @@ defineCustomElement('aie-break', Break);
 defineCustomElement('aie-quote', Quote);
 defineCustomElement('aie-image', Image);
 defineCustomElement('aie-video', Video);
+defineCustomElement('aie-audio', Audio);
 defineCustomElement('aie-code-block', CodeBlock);
 defineCustomElement('aie-hr', Hr);
 defineCustomElement('aie-table', Table);

@@ -1,6 +1,7 @@
 // import { openai } from "./chatgpt.ts";
 import { AiEditor } from "./core/AiEditor.ts";
 
+
 import { TiptapCollabProvider } from '@hocuspocus/provider'
 
 const provider = new TiptapCollabProvider({
@@ -40,8 +41,8 @@ window.aiEditor = new AiEditor({
             color: getRandomHexColor()
         },
     },
-    onSelectionUpdate: (editor) => {
-
+    image: {
+        allowBase64: false
     }
 })
 
@@ -55,3 +56,4 @@ function getRandomHexColor() {
     // 生成颜色的三个部分，并以#开头组成完整的十六进制颜色代码
     return `#${randomPart()}${randomPart()}${randomPart()}`;
 }
+

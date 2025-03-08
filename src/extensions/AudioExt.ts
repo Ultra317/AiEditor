@@ -7,7 +7,7 @@ import { createMediaDecoration } from "../util/decorations.ts";
 import { getUploader } from "../util/getUploader.ts";
 import { Uploader, UploaderEvent } from "../core/AiEditor.ts";
 
-export interface VideoOptions {
+export interface AudioOptions {
     HTMLAttributes: Record<string, any>,
     uploadUrl?: string,
     uploadHeaders?: (() => Record<string, any>) | Record<string, any>,
@@ -19,27 +19,27 @@ export interface VideoOptions {
 
 declare module '@tiptap/core' {
     interface Commands<ReturnType> {
-        video: {
-            setVideo: (src: string) => ReturnType,
-            toggleVideo: (src: string) => ReturnType,
-            uploadVideo: (file: File) => ReturnType,
+        audio: {
+            setAudio: (src: string) => ReturnType,
+            toggleAudio: (src: string) => ReturnType,
+            uploadAudio: (file: File) => ReturnType,
         }
     }
 }
 
 const VIDEO_INPUT_REGEX = /!\[(.+|:?)]\((\S+)(?:(?:\s+)["'](\S+)["'])?\)/
 
-export type VideoAction = {
+export type AudioAction = {
     type: "add" | "remove";
     id: string;
     pos: number;
 }
 
-const key = new PluginKey("aie-video-plugin");
-const actionKey = "video_action";
+const key = new PluginKey("aie-audio-plugin");
+const actionKey = "audio_action";
 
-export const VideoExt = Node.create<VideoOptions>({
-    name: 'video',
+export const AudioExt = Node.create<AudioOptions>({
+    name: 'audio',
     group: "block",
 
     addAttributes() {
@@ -57,11 +57,6 @@ export const VideoExt = Node.create<VideoOptions>({
                 },
                 renderHTML: (attrs) => ({ src: attrs.src }),
             },
-            poster: {
-                default: null,
-                parseHTML: (el) => el.getAttribute('poster'),
-                renderHTML: (attrs) => ({ poster: attrs.poster }),
-            },
             width: {
                 default: 350,
                 parseHTML: (element) => `${element.getAttribute('width') ?? ''}`,
@@ -76,10 +71,9 @@ export const VideoExt = Node.create<VideoOptions>({
     parseHTML() {
         return [
             {
-                tag: 'video',
+                tag: 'audio',
                 getAttrs: el => ({
-                    src: (el as HTMLVideoElement).getAttribute('src'),
-                    poster: (el as HTMLVideoElement).getAttribute('poster'),
+                    src: (el as HTMLAudioElement).getAttribute('src'),
                 }),
             },
         ]
@@ -87,7 +81,7 @@ export const VideoExt = Node.create<VideoOptions>({
 
     renderHTML({ HTMLAttributes }) {
         return [
-            'video',
+            'audio',
             { controls: 'true', ...HTMLAttributes, src: null },
             ['source', { src: HTMLAttributes.src }]
         ]
@@ -95,9 +89,9 @@ export const VideoExt = Node.create<VideoOptions>({
 
     addCommands() {
         return {
-            setVideo: (src: string) => ({ commands }) => commands.insertContent(`<video controls="true" style="width: 100%" src="${src}" />`),
-            toggleVideo: () => ({ commands }) => commands.toggleNode(this.name, 'paragraph'),
-            uploadVideo: (file: File) => () => {
+            setAudio: (src: string) => ({ commands }) => commands.insertContent(`<audio controls="true" style="width: 100%" src="${src}" />`),
+            toggleAudio: () => ({ commands }) => commands.toggleNode(this.name, 'paragraph'),
+            uploadAudio: (file: File) => () => {
 
                 const headers = (typeof this.options.uploadHeaders === "object") ? this.options.uploadHeaders :
                     ((typeof this.options.uploadHeaders === "function") ? this.options.uploadHeaders() : {});
@@ -120,7 +114,7 @@ export const VideoExt = Node.create<VideoOptions>({
 
 
                 const uploader = this.options.uploader || getUploader(this.options.uploadUrl!);
-                const uploadFormName = this.options.uploadFormName || "video";
+                const uploadFormName = this.options.uploadFormName || "audio";
                 uploader(file, this.options.uploadUrl!, headers, uploadFormName)
                     .then(json => {
 
@@ -139,9 +133,8 @@ export const VideoExt = Node.create<VideoOptions>({
                             const decorations = key.getState(this.editor.state) as DecorationSet;
                             let found = decorations.find(void 0, void 0, spec => spec.id == id)
                             view.dispatch(view.state.tr
-                                .insert(found[0].from, schema.nodes.video.create({
+                                .insert(found[0].from, schema.nodes.audio.create({
                                     src: json.data.src,
-                                    poster: json.data.poster,
                                     width: json.data.width || 350,
                                     controls: json.data.controls || "true",
                                 }))
@@ -173,22 +166,22 @@ export const VideoExt = Node.create<VideoOptions>({
                     dom: container
                 }
             }
-            const { src, width, align, poster, controls } = props.node.attrs;
-            container.classList.add(`align-${align}`);
+            const { src, width, align } = props.node.attrs;
+            container.classList.add(`align-${align}`)
             container.innerHTML = `
-              <div class="aie-resize-wrapper">
-                <div class="aie-resize">
-                  <div class="aie-resize-btn-top-left" data-position="left" draggable="true"></div>
-                  <div class="aie-resize-btn-top-right" data-position="right" draggable="true"></div>
-                  <div class="aie-resize-btn-bottom-left" data-position="left" draggable="true"></div>
-                  <div class="aie-resize-btn-bottom-right" data-position="right" draggable="true"></div>
-                </div>
-                <video ${controls ? 'controls' : ''} width="${width}" class="resize-obj" poster="${poster || ''}">
-                  <source src="${src}">
-                </video>
-              </div>
-            `;
-            resize(container, this.editor.view.dom, (attrs) => this.editor.commands.updateAttributes("video", attrs));
+                  <div class="aie-resize-wrapper">
+                      <div class="aie-resize">
+                          <div class="aie-resize-btn-top-left" data-position="left" draggable="true"></div>
+                          <div class="aie-resize-btn-top-right" data-position="right" draggable="true"></div>
+                          <div class="aie-resize-btn-bottom-left" data-position="left" draggable="true"></div>
+                          <div class="aie-resize-btn-bottom-right" data-position="right" draggable="true"></div>
+                      </div>
+                      <audio controls="controls" width="${width}" class="resize-obj">
+                          <source src="${src}">
+                      </audio>
+                  </div>
+                `
+            resize(container, this.editor.view.dom, (attrs) => this.editor.commands.updateAttributes("audio", attrs));
             return {
                 dom: container,
             }
@@ -219,7 +212,7 @@ export const VideoExt = Node.create<VideoOptions>({
                     init: () => DecorationSet.empty,
                     apply: (tr, set) => {
 
-                        const action = tr.getMeta(actionKey) as VideoAction;
+                        const action = tr.getMeta(actionKey) as AudioAction;
 
                         // update decorations position
                         set = set.map(tr.mapping, tr.doc);
@@ -249,11 +242,11 @@ export const VideoExt = Node.create<VideoOptions>({
 
                             if (!hasFiles) return false
 
-                            const videos = Array
+                            const audios = Array
                                 .from(event.dataTransfer.files)
-                                .filter(file => (/video/i).test(file.type))
+                                .filter(file => (/audio/i).test(file.type))
 
-                            if (videos.length === 0) return false
+                            if (audios.length === 0) return false
 
                             event.preventDefault()
 
@@ -261,8 +254,8 @@ export const VideoExt = Node.create<VideoOptions>({
                             const coordinates = view.posAtCoords({ left: event.clientX, top: event.clientY })
                             dispatch(tr.setSelection(TextSelection.create(doc, coordinates!.pos)).scrollIntoView())
 
-                            videos.forEach(video => {
-                                editor.commands.uploadVideo(video);
+                            audios.forEach(audio => {
+                                editor.commands.uploadAudio(audio);
                             })
 
                             return true
