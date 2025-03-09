@@ -166,7 +166,7 @@ export const AudioExt = Node.create<AudioOptions>({
                     dom: container
                 }
             }
-            const { src, width, align } = props.node.attrs;
+            const { src, width, align, controls } = props.node.attrs;
             container.classList.add(`align-${align}`)
             container.innerHTML = `
                   <div class="aie-resize-wrapper">
@@ -176,7 +176,7 @@ export const AudioExt = Node.create<AudioOptions>({
                           <div class="aie-resize-btn-bottom-left" data-position="left" draggable="true"></div>
                           <div class="aie-resize-btn-bottom-right" data-position="right" draggable="true"></div>
                       </div>
-                      <audio controls="controls" width="${width}" class="resize-obj">
+                      <audio controls="${controls}" width="${width}" class="resize-obj">
                           <source src="${src}">
                       </audio>
                   </div>
