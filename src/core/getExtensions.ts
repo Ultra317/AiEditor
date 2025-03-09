@@ -43,6 +43,7 @@ import Collaboration from "@tiptap/extension-collaboration";
 import CollaborationCursor from "@tiptap/extension-collaboration-cursor"
 import GlobalDragHandle from 'tiptap-extension-global-drag-handle'
 import { AudioExt } from "../extensions/AudioExt.ts";
+import { CommentExt } from "../extensions/CommentExt.ts";
 
 
 export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Extensions => {
@@ -149,6 +150,11 @@ export const getExtensions = (editor: AiEditor, options: AiEditorOptions): Exten
             ContainerExt.configure({
                 defaultType: options.container?.defaultType || "warning",
                 typeItems: options.container?.typeItems || defaultItems,
+            }),
+            CommentExt.configure({
+                HTMLAttributes: {
+                    class: "my-comment",
+                },
             }),
             ...getBubbleMenus(editor),
         )

@@ -1,16 +1,16 @@
-import {Extension, Extensions, getTextBetween, posToDOMRect} from "@tiptap/core";
-import {AiEditor} from "./AiEditor.ts";
-import {BubbleMenuOptions, BubbleMenuPlugin} from "../components/bubbles/BubbleMenuPlugin.ts";
+import { Extension, Extensions, getTextBetween, posToDOMRect } from "@tiptap/core";
+import { AiEditor } from "./AiEditor.ts";
+import { BubbleMenuOptions, BubbleMenuPlugin } from "../components/bubbles/BubbleMenuPlugin.ts";
 
-import {LinkBubbleMenu} from "../components/bubbles/LinkBubbleMenu.ts";
-import {AbstractBubbleMenu} from "../components/AbstractBubbleMenu.ts";
-import {ImageBubbleMenu} from "../components/bubbles/ImageBubbleMenu.ts";
-import {TableBubbleMenu} from "../components/bubbles/TableBubbleMenu.ts";
-import {TextSelectionBubbleMenu} from "../components/bubbles/TextSelectionBubbleMenu.ts";
-import {Instance} from "tippy.js";
-import {defineCustomElement} from "../commons/defineCustomElement.ts";
-import {CellSelection} from "@tiptap/pm/tables";
-import {getAIBoundingClientRect} from "../util/getAIBoundingClientRect.ts";
+import { LinkBubbleMenu } from "../components/bubbles/LinkBubbleMenu.ts";
+import { AbstractBubbleMenu } from "../components/AbstractBubbleMenu.ts";
+import { ImageBubbleMenu } from "../components/bubbles/ImageBubbleMenu.ts";
+import { TableBubbleMenu } from "../components/bubbles/TableBubbleMenu.ts";
+import { TextSelectionBubbleMenu } from "../components/bubbles/TextSelectionBubbleMenu.ts";
+import { Instance } from "tippy.js";
+import { defineCustomElement } from "../commons/defineCustomElement.ts";
+import { CellSelection } from "@tiptap/pm/tables";
+import { getAIBoundingClientRect } from "../util/getAIBoundingClientRect.ts";
 
 defineCustomElement('aie-bubble-link', LinkBubbleMenu);
 defineCustomElement('aie-bubble-image', ImageBubbleMenu);
@@ -66,15 +66,15 @@ const createTextSelectionBubbleMenu = (aiEditor: AiEditor) => {
                 menuEl.instance = instance;
             }
         },
-        shouldShow: ({editor}) => {
+        shouldShow: ({ editor }) => {
             if (!editor.isEditable) {
                 return false;
             }
-            const {state: {selection}} = editor;
+            const { state: { selection } } = editor;
             return !selection.empty && getTextBetween(editor.state.doc, {
-                    from: selection.from,
-                    to: selection.to
-                }).trim().length > 0
+                from: selection.from,
+                to: selection.to
+            }).trim().length > 0
                 && !editor.isActive("link")
                 && !editor.isActive("image")
                 && !editor.isActive("codeBlock")
@@ -99,7 +99,7 @@ const createLinkBubbleMenu = (aiEditor: AiEditor) => {
                 menuEl.instance = instance;
             },
         },
-        shouldShow: ({editor}) => {
+        shouldShow: ({ editor }) => {
             return editor.isEditable && editor.isActive("link")
         }
     })
@@ -117,10 +117,10 @@ const createImageBubbleMenu = (aiEditor: AiEditor) => {
             placement: 'top-start',
             arrow: false,
             getReferenceClientRect: (() => {
-                const {ranges} = aiEditor.innerEditor.state.selection
+                const { ranges } = aiEditor.innerEditor.state.selection
                 const from = Math.min(...ranges.map(range => range.$from.pos))
                 const to = Math.max(...ranges.map(range => range.$to.pos))
-                const {view} = aiEditor.innerEditor;
+                const { view } = aiEditor.innerEditor;
 
                 let node = view.nodeDOM(from) as HTMLElement
                 const imageEl = node.querySelector("img") as HTMLImageElement;
@@ -136,7 +136,7 @@ const createImageBubbleMenu = (aiEditor: AiEditor) => {
                 menuEl.instance = instance;
             },
         },
-        shouldShow: ({editor}) => {
+        shouldShow: ({ editor }) => {
             return editor.isEditable && editor.isActive("image")
         }
     })
@@ -155,10 +155,10 @@ const createTableBubbleMenu = (aiEditor: AiEditor) => {
             arrow: false,
             getReferenceClientRect: (() => {
                 const selection = aiEditor.innerEditor.state.selection;
-                const {ranges} = selection
+                const { ranges } = selection
                 const from = Math.min(...ranges.map(range => range.$from.pos))
                 const to = Math.max(...ranges.map(range => range.$to.pos))
-                const {view, state} = aiEditor.innerEditor;
+                const { view, state } = aiEditor.innerEditor;
 
                 const domRect = posToDOMRect(view, from, to);
                 const tablePos = state.selection.$from.posAtIndex(0, 1);
@@ -170,8 +170,8 @@ const createTableBubbleMenu = (aiEditor: AiEditor) => {
                 };
             })
         },
-        shouldShow: ({editor}) => {
-            const {state: {selection}} = editor;
+        shouldShow: ({ editor }) => {
+            const { state: { selection } } = editor;
             return editor.isEditable && editor.isActive("table") && selection instanceof CellSelection
         }
     })

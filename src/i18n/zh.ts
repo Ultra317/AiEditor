@@ -23,6 +23,7 @@ export const zh = {
     "link": "链接",
     "source-code": "源代码",
     "code": "行内代码",
+    "comment": "评论",
     "subscript": "下标",
     "superscript": "上标",
     "hr": "分割线",
