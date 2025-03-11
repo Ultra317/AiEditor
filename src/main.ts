@@ -1,18 +1,21 @@
 // import { openai } from "./chatgpt.ts";
 import { AiEditor } from "./core/AiEditor.ts";
+import { getTiptapCollabProvider } from "./components/Collaboration.ts"
 
-
-import { TiptapCollabProvider } from '@hocuspocus/provider'
-
-const provider = new TiptapCollabProvider({
-    name: "实验文档2",
+const provider = getTiptapCollabProvider({
+    name: "test",
     baseUrl: "ws://127.0.0.1:4333",
+    user: "miozd",
+    connect: false
 })
+
 let id = Math.round(Math.random() * 200).toString()
+
 provider.setAwarenessField('user', {
     name: 'user' + id,
     id: id
 })
+
 
 
 // @ts-ignore
@@ -20,6 +23,15 @@ window.aiEditor = new AiEditor({
     element: "#aiEditor",
     placeholder: "点击输入内容1...",
     toolbarExcludeKeys: ["source-code", "printer", "fullscreen", "ai"],
+    // image: {
+    //     uploadUrl: "http://localhost:8080/upload"
+    // },
+    // video: {
+    //     uploadUrl: "http://localhost:8080/upload"
+    // },
+    // audio: {
+    //     uploadUrl: "http://localhost:8080/upload"
+    // },
     // fontSize: {
     //     defaultValue: 72
     // },
@@ -41,11 +53,17 @@ window.aiEditor = new AiEditor({
             color: getRandomHexColor()
         },
     },
-    image: {
-        allowBase64: false
-    }
 })
 
+setTimeout(() => {
+    document.addEventListener('keydown', (event) => {
+        if (event.ctrlKey && event.code === "KeyS") {
+            event.preventDefault();
+            console.log('Ctrl+C');
+        }
+        provider.connect()
+    });
+}, 1000)
 
 
 
