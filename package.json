@@ -1,7 +1,7 @@
 {
   "name": "@ultra317/aieditor",
   "author": "yangfuhai/ultra317",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "type": "module",
   "keywords": [
     "editor",
@@ -83,6 +83,7 @@
     "tippy.js": "^6.3.7",
     "tiptap-extension-global-drag-handle": "^0.1.18",
     "turndown": "^7.2.0",
+    "y-websocket": "^2.1.0",
     "yjs": "^13.6.23"
   },
   "publishConfig": {

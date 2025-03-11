@@ -123,7 +123,7 @@ export const VideoExt = Node.create<VideoOptions>({
                 const uploadFormName = this.options.uploadFormName || "video";
                 uploader(file, this.options.uploadUrl!, headers, uploadFormName)
                     .then(json => {
-
+                        console.log(json)
                         //process on success
                         if (this.options.uploaderEvent?.onSuccess) {
                             const result = this.options.uploaderEvent.onSuccess(file, json);
