@@ -105,7 +105,7 @@ export const CommentExt = Mark.create<CommentOptions, CommentStorage>({
                     ({ commands }) => {
                         if (!commentId) return false;
 
-                        commands.setMark("comment", { commentId });
+                        return commands.setMark("comment", { commentId });
                     },
             unsetComment:
                 (commentId) =>
