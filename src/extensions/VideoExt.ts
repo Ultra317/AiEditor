@@ -9,6 +9,7 @@ import { Uploader, UploaderEvent } from "../core/AiEditor.ts";
 
 export interface VideoOptions {
     HTMLAttributes: Record<string, any>,
+    inline?: boolean,
     uploadUrl?: string,
     uploadHeaders?: (() => Record<string, any>) | Record<string, any>,
     uploader?: Uploader,
@@ -175,6 +176,9 @@ export const VideoExt = Node.create<VideoOptions>({
             }
             const { src, width, align, poster, controls } = props.node.attrs;
             container.classList.add(`align-${align}`);
+            if (this.options?.inline) {
+                container.style.display = "inline-flex"
+            }
             container.innerHTML = `
               <div class="aie-resize-wrapper">
                 <div class="aie-resize">

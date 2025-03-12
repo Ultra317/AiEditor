@@ -255,6 +255,10 @@ export const ImageExt = Image.extend<ImageOptions>({
                 }
             }
 
+            if (this.options?.inline) {
+                container.style.display = "inline-flex"
+            }
+
             container.innerHTML = `
                 <div class="aie-resize-wrapper" ${wrapperStyle}>
                     <div class="aie-resize">

@@ -9,6 +9,7 @@ import { Uploader, UploaderEvent } from "../core/AiEditor.ts";
 
 export interface AudioOptions {
     HTMLAttributes: Record<string, any>,
+    inline?: boolean,
     uploadUrl?: string,
     uploadHeaders?: (() => Record<string, any>) | Record<string, any>,
     uploader?: Uploader,
@@ -168,6 +169,10 @@ export const AudioExt = Node.create<AudioOptions>({
             }
             const { src, width, align, controls } = props.node.attrs;
             container.classList.add(`align-${align}`)
+            if (this.options?.inline) {
+                container.style.display = "inline-flex"
+            }
+
             container.innerHTML = `
                   <div class="aie-resize-wrapper">
                       <div class="aie-resize">
